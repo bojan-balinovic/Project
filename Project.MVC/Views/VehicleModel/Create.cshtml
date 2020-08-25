@@ -1,0 +1,26 @@
+﻿@model Project.MVC.ViewModels.VehicleModelViewModel
+
+@{
+    ViewData["Title"] = "Create vehicle model";
+}
+
+
+<h2>Create</h2>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <form asp-controller="VehicleModel" asp-action="Create" asp-route-id="" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(vmId => vmId.VehicleMakeId)
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="(e.g. X5, M5...)" />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+
+</div>

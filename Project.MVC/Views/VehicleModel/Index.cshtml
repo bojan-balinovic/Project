@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Project.MVC.ViewModels.VehicleModelViewModel>
+
+@{
+    ViewData["Title"] = "Vehicle models";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/lib/pagination/css/pagination.css" />
+
+}
+
+<h2 class="text-center">Vehicle models</h2>
+<br /><br />
+<input type="hidden" name="TotalPages" value=@ViewBag.TotalPages />
+<div class="col-md-10 col-sm-12 margin-auto">
+    <a asp-controller="VehicleMake" asp-action="Index" class="btn btn-primary float-left">Go Back</a>
+    <div class="float-right input-group w-auto">
+        <form asp-action="Index" method="get" class="input-group w-auto">
+            <input type="text" class="form-control w-auto" placeholder="Search" name="searchQuery" id="search-query">
+            <button type="submit" class="btn btn-info d-inline-block">Search</button>
+        </form>
+        <a asp-action="Create" asp-route-id=@ViewBag.VehicleMakeId class="btn btn-success create-button">Create</a>
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="date_created_desc">Date (Newest)</a>
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="date_created">Date (Oldest)</a>
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="date_modified_desc">Date modified (Newest)</a>
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="date_modified">Date modified (Oldest)</a>
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="alphabetically">Alphabetically A-Z</a>
+                <a class="dropdown-item" asp-action="Index" asp-route-id=@ViewBag.VehicleMakeId asp-route-orderBy="alphabetically_desc">Alphabetically Z-A</a>
+
+            </div>
+        </div>
+
+    </div>
+    <br /><br />
+    <table class="table">
+        <thead>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col" class="text-right">Action</th>
+        </thead>
+        <tbody>
+            @{int i = 1;}
+            @foreach (var vehicleModel in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>@{i++;}
+                    <td>@vehicleModel.Name</td>
+                    <td class="text-right">
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id=@vehicleModel.Id>Edit</a>
+                        <form asp-controller="VehicleModel"
+                              asp-action="Delete"
+                              asp-route-id=@vehicleModel.Id
+                              class="d-inline-block">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+            <div id="pagination">
+
+            </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/pagination/js/pagination.min.js"></script>
+    <script src="~/js/paginationHandler.js"></script>
+}
+

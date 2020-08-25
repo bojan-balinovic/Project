@@ -1,0 +1,20 @@
+﻿@model Project.MVC.ViewModels.VehicleMakeViewModel
+
+<h2>Create vehicle make</h2>
+<br/>
+<div class="row">
+    <div class="col-md-3">
+        <form asp-controller="VehicleMake" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="(e.g. BMW, Audi...)" />
+            </div>
+                
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+
+</div>

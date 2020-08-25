@@ -1,0 +1,25 @@
+﻿@model Project.MVC.ViewModels.VehicleModelViewModel
+
+@{
+    ViewData["Title"] = "Edit vehicle model";
+}
+
+<h2>Edit</h2>
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <form asp-controller="VehicleModel" asp-action="Edit" asp-route-id=@Model.Id method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(vmId => vmId.VehicleMakeId)
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" asp-for="Name" value=@Model.Name placeholder="(e.g. X5, M5...)" />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+
+</div>
